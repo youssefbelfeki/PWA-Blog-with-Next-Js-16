@@ -27,7 +27,7 @@ A modern, responsive Progressive Web App (PWA) blog built with Next.js that disp
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/youssefbelfeki/PWA-Blog-with-Next-Js-16.git>
    cd next-pwa-blog
    ```
 
