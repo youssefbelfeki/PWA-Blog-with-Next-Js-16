@@ -11,7 +11,7 @@ interface NewsApiResponse {
 export async function GET() {
   try {
     const res = await fetch(
-      `https://newsapi.org/v2/everything?q=bitcoin&apiKey=${process.env.NEWS_API_KEY}`,
+      `https://newsapi.org/v2/everything?q=bitcoin&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`,
       { cache: "no-store" }
     );
 

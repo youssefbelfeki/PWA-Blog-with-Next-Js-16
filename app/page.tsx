@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
-import NewsClient from "@/components/news-client";
+import { Button } from "@/components/ui/button";
 
 export default async function HomePage() {
 
@@ -9,7 +10,14 @@ export default async function HomePage() {
         <h1 className="text-3xl font-bold">📰 Crypto News</h1>
         <ThemeToggle />
       </div>
-      <NewsClient/>
+      <div className="flex gap-4">
+        <Link href="/posts">
+          <Button>Static Posts</Button>
+        </Link>
+        <Link href="/news">
+          <Button>Dynamic News</Button>
+        </Link>
+      </div>
     </main>
   );
 }

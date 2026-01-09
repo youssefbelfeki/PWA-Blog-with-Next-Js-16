@@ -1,8 +1,13 @@
 
-import { fetchNews } from "@/lib/api";
 import { Article } from "@/lib/types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+
+interface NewsApiResponse {
+  status: string;
+  totalResults: number;
+  articles: Article[];
+}
 
 interface PageProps {
   params: {
@@ -10,12 +15,30 @@ interface PageProps {
   };
 }
 
+const createSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '');
+};
+
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
-  const articles: Article[] = await fetchNews();
 
+  const res = await fetch(
+    `https://newsapi.org/v2/everything?q=bitcoin&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch news");
+  }
+
+  const data: NewsApiResponse = await res.json();
+  const articles: Article[] = data.articles;
+  
   const article = articles.find(
-    (a) => encodeURIComponent(a.title) === slug
+    (a) => createSlug(a.title) === slug
   );
 
   if (!article) return notFound();
